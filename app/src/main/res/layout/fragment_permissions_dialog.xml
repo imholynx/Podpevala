@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.imholynx.podpevala.PermissionsDialogFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Please allow Podpevala use micro to find your song" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="canel"/>
+        <Button
+            android:id="@+id/openPermissionsSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text ="Open Settings"/>
+
+</LinearLayout>

@@ -1,37 +1,32 @@
 package com.imholynx.podpevala
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.support.v7.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.PermissionChecker
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import com.acrcloud.rec.sdk.ACRCloudClient
 import com.acrcloud.rec.sdk.ACRCloudConfig
 import com.acrcloud.rec.sdk.IACRCloudListener
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
-import android.net.Uri.fromParts
-import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 
+class MainActivity : AppCompatActivity(),IACRCloudListener,PermissionsDialogFragment.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(uri: Uri) {
 
-class MainActivity : AppCompatActivity(),IACRCloudListener {
+    }
 
     lateinit var config:ACRCloudConfig
     lateinit var client:ACRCloudClient
-
-    var volume: TextView? = null
-    var result: TextView? = null
-    var tv_time: TextView? = null
 
     var initState:Boolean = false
     var processing:Boolean = false
@@ -40,11 +35,11 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
     var stopTime:Long = 0
 
     override fun onVolumeChanged(p0: Double) {
-        volume?.text  = p0.toString()
+        volume.text  = p0.toString()
     }
 
     override fun onResult(p0: String?) {
-        result?.text = p0
+        result.text = p0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,10 +52,6 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
         if (!file.exists()) {
             file.mkdirs()
         }
-
-        volume = findViewById(R.id.volume)
-        result = findViewById(R.id.result)
-        tv_time = findViewById(R.id.tv_time)
 
         val startBtn: Button = findViewById(R.id.start)
         val cancelBtn: Button = findViewById(R.id.cancel)
@@ -93,11 +84,18 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
 
             } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                             Manifest.permission.RECORD_AUDIO)) {
-                val intent = Intent()
+
+                val permissionsDialogFragment = PermissionsDialogFragment.newInstance("","")
+                val fragmentManager = getSupportFragmentManager()
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.add(R.id.frameId,permissionsDialogFragment)
+                fragmentTransaction.commit()
+
+                /*val intent = Intent()
                 intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                 val uri = Uri.fromParts("package", packageName, null)
                 intent.data = uri
-                startActivity(intent)
+                startActivity(intent)*/
             } else {
                 Log.d(this@MainActivity.localClassName,"ask for permission")
                 makeRequest()
@@ -123,7 +121,7 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
             processing = true
             if(!::client.isInitialized || !client.startRecognize()){
                 processing = false
-                result?.text = "start error"
+                result.text = "start error"
             }
             startTime = System.currentTimeMillis()
         }
@@ -133,8 +131,8 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
         {
             processing = false
             client.cancel()
-            result?.text = ""
-            tv_time?.text = ""
+            result.text = ""
+            tv_time.text = ""
 
 
         }
@@ -146,4 +144,5 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
         processing = false
         stopTime = System.currentTimeMillis()
     }
+
 }
