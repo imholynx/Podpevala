@@ -113,6 +113,21 @@ class MainActivity : AppCompatActivity(),IACRCloudListener {
                 101)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            101 -> {
+                if(grantResults.isEmpty() || grantResults[0] !=PackageManager.PERMISSION_GRANTED){
+
+                }
+                else{
+
+                }
+
+            }
+        }
+    }
+
     fun start(){
         if(!initState){
             Toast.makeText(this,"please wait a second for init",Toast.LENGTH_SHORT).show()
