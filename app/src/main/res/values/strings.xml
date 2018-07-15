@@ -3,4 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_settings">Open settings</string>
+    <string name="message">Please, let Podpevala use microphone to find your song</string>
+    <string name="cancel">Cancel</string>
+    <string name="micro_unavailable">Cannot get access to microphone</string>
 </resources>
