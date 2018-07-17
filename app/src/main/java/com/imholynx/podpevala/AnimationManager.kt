@@ -10,7 +10,7 @@ class AnimationManager {
         startTime = System.currentTimeMillis()
     }
 
-    val ANIMATION_DURATION = 5000 //in ms
+    val ANIMATION_DURATION = 15000 //in ms
     val DEFAULT_POSITION = 0f
     val MAX_POSITION = 1f
 

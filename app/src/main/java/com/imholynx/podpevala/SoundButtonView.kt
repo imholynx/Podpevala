@@ -1,9 +1,11 @@
 package com.imholynx.podpevala
 
+import android.animation.RectEvaluator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
@@ -48,7 +50,7 @@ class SoundButtonView : View {
 
     fun setVolume(value: Float)
     {
-        volume = manager.getPosition(value)
+        volume = value
         invalidate()
     }
 
@@ -61,6 +63,7 @@ class SoundButtonView : View {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawCircle(canvas)
+        drawRound(canvas)
         drawBorder(canvas)
         icon!!.draw(canvas)
     }
@@ -82,10 +85,30 @@ class SoundButtonView : View {
         val size = measuredWidth
         val min = (circleRadius*size + borderWidth)/2f
         val max = (size  - borderWidth)/2f
+        val borderRadius = min + manager.getPosition(volume)*(max-min)
+
+        val circle = RectF(size/2f - borderRadius,size/2f - borderRadius, size/2f+borderRadius,size/2f + borderRadius)
+        canvas.drawArc(circle,0f,30f,false,paint)
+        canvas.drawArc(circle,60f,30f,false,paint)
+        canvas.drawArc(circle,120f,30f,false,paint)
+        canvas.drawArc(circle,180f,30f,false,paint)
+        canvas.drawArc(circle,240f,30f,false,paint)
+        canvas.drawArc(circle,300f,30f,false,paint)
+
+        //canvas.drawCircle(size / 2f, size / 2f, borderRadius, paint)
+    }
+
+    private fun drawRound(canvas: Canvas){
+        paint.color = Color.YELLOW
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = borderWidth
+
+        val size = measuredWidth
+        val min = (circleRadius*size + borderWidth)/2f
+        val max = (size  - borderWidth)/2f
         val borderRadius = min + volume*(max-min)
 
-        canvas.drawCircle(size / 2f, size / 2f, borderRadius, paint)
-
+        canvas.drawCircle(size / 2f, size / 2f, borderRadius-borderWidth, paint)
 
     }
 }
