@@ -67,15 +67,14 @@
         android:text="Stop" />
     <com.imholynx.podpevala.SoundButtonView
         android:id="@+id/sound_button"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:center_color = "#00ff00"
         app:border_color = "#aaff33"
-        app:border_width="10dp"
-        app:circle_radius="0.1"
-        app:volume="0.5"
+        app:border_width="4dp"
+        app:circle_radius="0.4"
         app:icon="@android:drawable/ic_delete"/>
     <android.support.v7.widget.AppCompatSeekBar
         android:id="@+id/seekBar"

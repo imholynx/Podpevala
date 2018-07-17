@@ -1,16 +1,16 @@
 package com.imholynx.podpevala
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 
 class SoundButtonView : View {
+
+    val manager: AnimationManager = AnimationManager()
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -48,7 +48,7 @@ class SoundButtonView : View {
 
     fun setVolume(value: Float)
     {
-        volume = value
+        volume = manager.getPosition(value)
         invalidate()
     }
 
