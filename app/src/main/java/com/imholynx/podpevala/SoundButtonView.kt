@@ -40,7 +40,6 @@ class SoundButtonView : View {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-
     private var circleRadius = 0.5f
     private var centerColor = Color.CYAN
     private var borderColor = Color.BLUE
@@ -62,8 +61,8 @@ class SoundButtonView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        drawCircle(canvas)
         drawRound(canvas)
+        drawCircle(canvas)
         drawBorder(canvas)
         icon!!.draw(canvas)
     }
@@ -100,7 +99,7 @@ class SoundButtonView : View {
 
     private fun drawRound(canvas: Canvas){
         paint.color = Color.YELLOW
-        paint.style = Paint.Style.STROKE
+        paint.style = Paint.Style.FILL
         paint.strokeWidth = borderWidth
 
         val size = measuredWidth
