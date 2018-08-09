@@ -2,7 +2,9 @@
 
 <resources>
     <declare-styleable name="SoundButtonView">
+        <attr name="animation_duration" format="integer"/>
         <attr name="center_color" format="color"/>
+        <attr name="round_color" format="color"/>
         <attr name="border_color" format="color"/>
         <attr name="circle_radius" format="float"/>
         <attr name="border_width" format="dimension"/>

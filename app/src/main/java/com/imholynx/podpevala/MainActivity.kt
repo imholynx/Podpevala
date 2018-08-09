@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), IACRCloudListener, ActivityCompat.OnRe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        start.setOnClickListener{ view -> if(processing) stop() else start() }
+        start.setOnClickListener{ _ -> if(processing) stop() else start() }
         //sound_button.setOnClickListener{ view -> if(processing) stop() else start() }
 
         //TODO удалить

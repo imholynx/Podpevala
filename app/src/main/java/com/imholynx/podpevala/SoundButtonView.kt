@@ -12,7 +12,7 @@ import android.view.View
 
 class SoundButtonView : View {
 
-    val manager: AnimationManager = AnimationManager()
+    lateinit var manager: AnimationManager
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -26,12 +26,15 @@ class SoundButtonView : View {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it, R.styleable.SoundButtonView, 0, 0)
             try {
+                animationDuration = typedArray.getInt(R.styleable.SoundButtonView_animation_duration, 10000)
                 centerColor = typedArray.getColor(R.styleable.SoundButtonView_center_color, Color.BLUE)
+                roundColor = typedArray.getColor(R.styleable.SoundButtonView_round_color, Color.YELLOW)
                 borderColor = typedArray.getColor(R.styleable.SoundButtonView_border_color, Color.CYAN)
                 borderWidth = typedArray.getDimension(R.styleable.SoundButtonView_border_width, 4f)
                 volume = typedArray.getFloat(R.styleable.SoundButtonView_volume,0f)
                 circleRadius = typedArray.getFloat(R.styleable.SoundButtonView_circle_radius, 0.5f)
                 icon  = typedArray.getDrawable(R.styleable.SoundButtonView_icon)
+                manager = AnimationManager(animationDuration)
                 } finally{
                 typedArray.recycle()
             }
@@ -40,8 +43,10 @@ class SoundButtonView : View {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
+    private var animationDuration = 10000
     private var circleRadius = 0.5f
     private var centerColor = Color.CYAN
+    private var roundColor = Color.YELLOW
     private var borderColor = Color.BLUE
     private var borderWidth = 4.0f
     private var volume:Float = 0.5f
@@ -64,7 +69,8 @@ class SoundButtonView : View {
         drawRound(canvas)
         drawCircle(canvas)
         drawBorder(canvas)
-        icon!!.draw(canvas)
+        icon?.setBounds(50,50,50,50)
+        icon?.draw(canvas)
     }
 
     private fun drawCircle(canvas: Canvas) {
@@ -93,12 +99,10 @@ class SoundButtonView : View {
         canvas.drawArc(circle,180f,30f,false,paint)
         canvas.drawArc(circle,240f,30f,false,paint)
         canvas.drawArc(circle,300f,30f,false,paint)
-
-        //canvas.drawCircle(size / 2f, size / 2f, borderRadius, paint)
     }
 
     private fun drawRound(canvas: Canvas){
-        paint.color = Color.YELLOW
+        paint.color = roundColor
         paint.style = Paint.Style.FILL
         paint.strokeWidth = borderWidth
 
@@ -108,6 +112,5 @@ class SoundButtonView : View {
         val borderRadius = min + volume*(max-min)
 
         canvas.drawCircle(size / 2f, size / 2f, borderRadius-borderWidth, paint)
-
     }
 }

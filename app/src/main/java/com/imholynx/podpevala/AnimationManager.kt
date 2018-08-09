@@ -1,16 +1,16 @@
 package com.imholynx.podpevala
 
-import android.util.Log
 
 class AnimationManager {
 
     var startTime: Long
 
-    constructor() {
+    constructor(duration: Int) {
+        this.ANIMATION_DURATION = duration
         startTime = System.currentTimeMillis()
     }
 
-    val ANIMATION_DURATION = 15000 //in ms
+    var ANIMATION_DURATION = 5000 //in ms
     val DEFAULT_POSITION = 0f
     val MAX_POSITION = 1f
 
